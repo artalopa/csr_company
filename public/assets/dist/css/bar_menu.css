@@ -1,0 +1,133 @@
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.486);
+    padding: 1rem;
+}
+
+.nav-menu-bar {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.nav-menu-bar .nav-menu-item {
+    margin-right: 3rem;
+}
+
+.nav-menu-bar .nav-menu-item a {
+    font-size: 16px;
+    font-weight: 400;
+    color: #504e4f;
+    text-decoration: none;
+}
+
+.nav-menu-bar .nav-menu-item a:hover{
+    color: #00a85a;
+}
+
+.nav-menu-bar .nav-menu-item .active {
+    color: #00a85a;
+    font-weight: 600;
+}
+
+.nav-menu-item .nav-menu-link {
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu-item .nav-menu-link span {
+    margin-right: .8rem;
+}
+
+.nav-menu-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.nav-menu-home-icon {
+    display: block;
+    margin-bottom: -5px;
+}
+
+.nav-menu-home a{
+    text-decoration: none;
+}
+
+.nav-menu-home span i {
+    font-size: 2em;
+    color: #fdad3c;
+}
+
+.nav-menu-home small {
+    color: #504e4f;
+    font-size: 10px;
+}
+
+@media screen and (max-width:768px) {
+    .nav-menu-bar .nav-menu-item  {
+        margin-right: .5rem;
+    }
+
+    .nav-menu-title {
+        display: none;
+    }
+
+    .nav-menu-item img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .nav-menu-home small {
+        display: none;
+    }
+    .nav-menu-item span .icon{
+        display: none;
+    }
+
+    .nav-menu-home span i {
+        font-size: 1.5em;
+    }
+}
+
+/* Dropdown */
+.dropdown-menu__bg-none {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.dropdown-item__custome {
+    padding: 0;
+    background-color: #f5f3f4;
+    border-radius: 4px;
+    margin-bottom: .3rem;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.274);
+}
+
+.dropdown-item__custome:hover{
+    background-color: #f5f3f4;
+}
+
+.dropdown-item__custome span{
+    padding: .3rem .75rem;
+    color: #0a0a0a;
+}
+
+.dropdown-item__custome span:hover {
+    color: #00a85a;
+}
+
+.dropdown-menu .active {
+    background-color: #f5f3f4;
+}
+
+.dropdown-menu .active span {
+    color: #00a85a;
+}

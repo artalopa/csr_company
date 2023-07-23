@@ -1,0 +1,21 @@
+#map {
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+#map .map-title {
+    position: absolute;
+    width: 100%;
+    left: 5%;
+    top: 3%;
+    z-index: 999;
+}
+
+.leaflet-popup-content {
+    margin: 1px;
+}
+
+.leaflet-popup-close-button span {
+    color: white;
+}
