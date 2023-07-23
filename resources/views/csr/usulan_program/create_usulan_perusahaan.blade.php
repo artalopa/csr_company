@@ -248,7 +248,7 @@
                                 <div class="mb-2">
                                     <label class="form-label__custome">Nomial RAB <span>*</span></label>
                                     <input type="text" class="form-control form-control__custome" placeholder="Rp. "
-                                        data-type="currency" name="nominal_rab">
+                                        data-type="currency" name="nominal_rab" id="nominal-rab">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label__custome">Buat RAB <span>*</span></label>
@@ -275,6 +275,7 @@
                                         </div>
                                     </div>
                                     <div id="form-add-rab"></div>
+
                                     <div class="row g-1">
                                         <div class="col-md-6">
                                             <input type="text"
@@ -287,6 +288,7 @@
                                                 id="total-rab" data-type="currency" disabled value="Rp. ">
                                         </div>
                                     </div>
+                                    <p class="text-danger" id="total_rab_validation"></p>
                                 </div>
                             </div>
                             <div>
@@ -330,8 +332,8 @@
 
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-green__custome"
-                                        style="font-size: 1rem">SIMPAN</button>
+                                    <button type="submit" id="usulan_perusahaan_submit_button"
+                                        class="btn btn-green__custome" style="font-size: 1rem">SIMPAN</button>
                                 </div>
                             </div>
                         </div>
@@ -428,6 +430,18 @@
                 var total_rab = calculateSum(arr);
                 $('#total-rab').val('Rp. ' + total_rab.toLocaleString("de-DE"));
 
+                // validasi nominal dan total RAB
+                var nominal_rab = parseInt($('#nominal-rab').val().replace(/[Rp. ]+/g, ""));
+                var total_rab = parseInt($('#total-rab').val().replace(/[Rp. ]+/g, ""));
+                console.log(nominal_rab);
+                console.log(total_rab);
+                if (total_rab > nominal_rab) {
+                    console.log('Total RAB melebihi Nominal yang telah ditetapkan');
+                    $('#usulan_perusahaan_submit_button').prop('disabled', true);
+                    // alert('Total RAB melebihi Nominal yang telah ditetapkan');
+                    $('#total_rab_validation').text('Total RAB melebihi Nominal yang telah ditetapkan');
+                }
+
                 // put caret back in the right position
                 var updated_len = input_val.length;
                 caret_pos = updated_len - original_len + caret_pos;
@@ -453,6 +467,19 @@
             var total_rab = calculateSum(arr);
             $('#total-rab').val('Rp. ' + total_rab.toLocaleString("de-DE"));
         })
+
+        // validasi nominal dan total RAB
+        // $('#total-rab').change(function() {
+        //     var nominal_rab = $('#nominal-rab').val();
+        //     var total_rab = $('#total-rab').val();
+
+        //     console.log(nominal_rab);
+        //     console.log(total_rab);
+
+        //     if (total_rab > nominal_rab) {
+        //         console.log('Total RAB melebihi Nominal yang telah ditetapkan')
+        //     }
+        // });
     </script>
 
     <script>
