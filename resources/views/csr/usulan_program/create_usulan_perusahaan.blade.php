@@ -348,7 +348,6 @@
 @section('js')
     <script src="{{ asset('assets/dist/libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/select2/select2.js') }}"></script>
-    <script src="{{ asset('assets/dist/js/currency.js') }}"></script>
     <script src="{{ asset('assets/dist/js/autocode.js') }}"></script>
 
     <script>
@@ -374,9 +373,19 @@
 
             $("#form-add-rab").append(html);
 
-            // currency
-            // Jquery Dependency
+            currency();
+        });
 
+        $("body").on("click", "#delete-rab", function() {
+            $(this).parents("#rab-child").remove();
+            totalRab();
+            totalRabValidation();
+        })
+
+        currency();
+
+        // currency
+        function currency() {
             $("input[data-type='currency']").on({
                 keyup: function() {
                     formatCurrency($(this));
@@ -416,44 +425,18 @@
                 // send updated string to input
                 input.val(input_val);
 
-                // total RAB
-                var list_rab = document.getElementsByClassName('list-rab');
-                var arr = [...list_rab].map(input => parseInt(input.value.replace(/[Rp. ]+/g, "")));
-
-                // define a reusable sum function
-                const calculateSum = (arr) => {
-                    return arr.reduce((total, current) => {
-                        return total + current;
-                    }, 0);
-                }
-                // total rab
-                var total_rab = calculateSum(arr);
-                $('#total-rab').val('Rp. ' + total_rab.toLocaleString("de-DE"));
-
-                // validasi nominal dan total RAB
-                var nominal_rab = parseInt($('#nominal-rab').val().replace(/[Rp. ]+/g, ""));
-                var total_rab = parseInt($('#total-rab').val().replace(/[Rp. ]+/g, ""));
-                console.log(nominal_rab);
-                console.log(total_rab);
-                if (total_rab > nominal_rab) {
-                    console.log('Total RAB melebihi Nominal yang telah ditetapkan');
-                    $('#usulan_perusahaan_submit_button').prop('disabled', true);
-                    // alert('Total RAB melebihi Nominal yang telah ditetapkan');
-                    $('#total_rab_validation').text('Total RAB melebihi Nominal yang telah ditetapkan');
-                }
+                totalRab();
+                totalRabValidation();
 
                 // put caret back in the right position
                 var updated_len = input_val.length;
                 caret_pos = updated_len - original_len + caret_pos;
                 input[0].setSelectionRange(caret_pos, caret_pos);
             }
+        }
 
-        });
-
-        $("body").on("click", "#delete-rab", function() {
-            $(this).parents("#rab-child").remove();
-
-            // total RAB
+        // total RAB
+        function totalRab() {
             var list_rab = document.getElementsByClassName('list-rab');
             var arr = [...list_rab].map(input => parseInt(input.value.replace(/[Rp. ]+/g, "")));
 
@@ -466,20 +449,23 @@
             // total rab
             var total_rab = calculateSum(arr);
             $('#total-rab').val('Rp. ' + total_rab.toLocaleString("de-DE"));
-        })
+        }
 
         // validasi nominal dan total RAB
-        // $('#total-rab').change(function() {
-        //     var nominal_rab = $('#nominal-rab').val();
-        //     var total_rab = $('#total-rab').val();
+        function totalRabValidation() {
+            var nominal_rab = parseInt($('#nominal-rab').val().replace(/[Rp. ]+/g, ""));
+            var total_rab = parseInt($('#total-rab').val().replace(/[Rp. ]+/g, ""));
 
-        //     console.log(nominal_rab);
-        //     console.log(total_rab);
-
-        //     if (total_rab > nominal_rab) {
-        //         console.log('Total RAB melebihi Nominal yang telah ditetapkan')
-        //     }
-        // });
+            if (total_rab > nominal_rab) {
+                $('p#total_rab_validation').text('Total RAB melebihi Nominal yang telah ditetapkan');
+                $('#add-rab').addClass('disabled');
+                $('#usulan_perusahaan_submit_button').addClass('disabled');
+            } else {
+                $('p#total_rab_validation').text('');
+                $('#add-rab').removeClass('disabled');
+                $('#usulan_perusahaan_submit_button').removeClass('disabled');
+            }
+        }
     </script>
 
     <script>
